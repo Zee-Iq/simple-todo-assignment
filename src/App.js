@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import View from "./View";
+import View from "./components/View";
 
 // getting the values from local storage in the browser
 // if there is data in local storage, return data in JSON format
@@ -43,6 +43,8 @@ const App = () => {
     setCategory("");
   };
 
+  //
+
   // saving data to local storage
   // providing [todos] as a dependancy parameter
   // whenever a new todo is added to the array --> this useEffect is fired and the new todo is stored in todos array
@@ -64,92 +66,75 @@ const App = () => {
           >
             <label htmlFor="title">Title</label>
             <br />
-            <input
-              placeholder="enter title..."
-              type="text "
-              className="form-controll m-1"
-              id="title"
-              required
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-            <br />
-            {/* PICK CATEGORY */}
-            <label className="pt-3 ">Pick one or more categories</label>
-            <div className="m-2">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="private"
-                />
-                <label className="form-check-label" for="private">
-                  private
-                </label>
-              </div>
-              <div className="form-check">
-                <input type="checkbox" className="form-check-input" id="work" />
-                <label className="form-check-label" for="work">
-                  work
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="house"
-                />
-                <label className="mb-2 form-check-label" for="house">
-                  house
-                </label>
-              </div>
+            <div className="card">
+              <input
+                placeholder="enter title of task..."
+                type="text "
+                className="form-controll m-1"
+                id="title"
+                required
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
             </div>
 
-            {/* CREATE CATEGORY */}
-            <label className="pb-2">... and/or create your own category</label>
-            <br />
-            <input
-              placeholder="enter category... "
-              type="text "
-              className="form-controll m-1  "
-              onChange={(e) => setCategory(e.target.value)}
-              value={category}
-            />
-            <br />
-            <button className="btn btn-outline-secondary mt-2   " type="submit">
-              create todo
+            <button className="btn btn-outline-secondary mt-3   " type="submit">
+              create task
             </button>
-          </form>
-        </div>
 
-        {/* 
+            {/* Open tasks box */}
+            {/* 
         Adding Logic to handle 0 to do items in the list:
         If the length of the todos array is less than 1, then the div with "nothing to do today..." is rendered.
         */}
-        {/* When todos array is greater than 0, return  */}
-        <div className="view-container">
-          {todos.length > 0 && (
-            <>
-              <div className="table-responsive">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Category</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                     <View todos={todos} />
-                  </tbody>
-                </table>
-              </div>
-            </>
-          )}
-          {todos.length < 1 && (
-            <div>
-              <p>Nothing to do today... take some time off</p>
+            <div className="view-container">
+              {todos.length > 0 && (
+                <>
+                  <div className="table-responsive">
+                    <table className="table">
+                      <thead>
+                        <div className="wrapper">
+                          <h3>Open tasks</h3>
+                        </div>
+                        <tr>
+                          <th>Title</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <View todos={todos} />
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+              {todos.length < 1 && (
+                <div>
+                  <p>Nothing to do today... take some time off</p>
+                </div>
+              )}
             </div>
-          )}
+
+            {/* if todos.length is less than 1 hide view-container */}
+            {todos.length > 0 && (
+              <>
+                <div className="view-container">
+                  <div className="table-responsive">
+                    <table className="table">
+                      <thead>
+                        <div className="wrapper">
+                          <h3>Completed </h3>
+                        </div>
+                        <tr>
+                          <th>Title</th>
+                        </tr>
+                      </thead>
+                      <tbody>{/* completed view component here */}</tbody>
+                    </table>
+                  </div>
+                </div>
+              </>
+            )}
+          </form>
         </div>
       </div>
     </div>

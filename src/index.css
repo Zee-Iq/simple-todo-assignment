@@ -1,43 +1,43 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-.wrapper{
+.wrapper {
   overflow-x: hidden;
-  overflow-y: auto;    
+  overflow-y: auto;
 }
 
-.wrapper h1{
+.wrapper h1 {
   margin-top: 30px;
   text-align: center;
 }
 
-.wrapper p{
+.wrapper p {
   text-align: center;
   margin-top: 7px;
   font-weight: bold;
 }
 
-.wrapper .main{
+.wrapper .main {
   display: flex;
   margin-top: 20px;
   align-items: center;
 }
 
-.wrapper .form-container{
+.wrapper .form-container {
   width: auto;
-  background-color: #e4e4e4;
-  margin:  auto;
-  padding: 1em;   
+  background-color: #abd5f7;
+  margin: auto;
+  padding: 1em;
 }
 
-.wrapper .form-container .btn{
-  width: 100%;   
+.wrapper .form-container .btn {
+  width: 100%;
 }
 
-.wrapper .view-container{
-  width: 600px;    
+.wrapper .view-container {
+  width: auto;
   background-color: #cfe8fc;
   margin: 20px auto;
   padding: 20px;
@@ -45,11 +45,12 @@
   flex-direction: row;
 }
 
-.delete-btn{
+.delete-btn {
   color: red;
   cursor: pointer;
 }
 
-tbody{
-  margin-top: 25px;
+tbody {
+  width: 100%;
 }
+
