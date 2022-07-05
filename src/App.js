@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
+import View from "./View";
+
+// getting the values from local storage in the browser
+// if there is data in local storage, return data in JSON format
+// else return an empty array
+const getDatafromLocalStorage = () => {
+  const data = localStorage.getItem("todos");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
 
 const App = () => {
-  // creating an array to store in the object state, intially the array is empty
+  // creating an array to store in the object state, initially the getDatafromLocalStorage variable is passed
   // main array of object state --> title and category
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(getDatafromLocalStorage());
 
   //input field states and setters
   const [title, setTitle] = useState("");
@@ -32,7 +45,7 @@ const App = () => {
 
   // saving data to local storage
   // providing [todos] as a dependancy parameter
-  // whenever a new todo is added to the array --> this useEffect is fired
+  // whenever a new todo is added to the array --> this useEffect is fired and the new todo is stored in todos array
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -108,7 +121,36 @@ const App = () => {
             </button>
           </form>
         </div>
-        <div className="view-container">view</div>
+
+        {/* 
+        Adding Logic to handle 0 to do items in the list:
+        If the length of the todos array is less than 1, then the div with "nothing to do today..." is rendered.
+        */}
+        {/* When todos array is greater than 0, return  */}
+        <div className="view-container">
+          {todos.length > 0 && (
+            <>
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Category</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <View todos={todos} />
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+          {todos.length < 1 && (
+            <div>
+              <p>Nothing to do today... take some time off</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
