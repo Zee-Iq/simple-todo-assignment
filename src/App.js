@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from "react";
 
 const App = () => {
-  // createing an array to store in the single tasks with optional titles
-  // initializing the useState hook with an empty array
-  // when creating a task, an object will be stored in the previously empty array
-  // input field states
+  // creating an array to store in the object state, intially the array is empty
+  // main array of object state --> title and category
+  const [todos, setTodos] = useState([]);
 
-  const [tasks, setTasks] = useState([]);
-  const [taskName, setTaskName] = useState("");
+  //input field states and setters
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
 
-  // form submit event handler
-  // adding e.preventDefault() function to avoid default behaviour of submit
-  // page is not going to reload when after clicking "create task" button
+  //when pressing submit button, an object will be stored in todo useState
 
-  const handleTaskSubmit = (e) => {
+  // creating an eventhandler to handle submit
+  // the idea is to push the todo object into useStae todo
+  const handleTodoSubmit = (e) => {
+    // avoiding reload on submit
     e.preventDefault();
-    // creating an object to store task data
-    let task = {
-      // if name of key and value is the exact same, ES6 allows us to write just one thing instead of key value pairs
-      taskName,
+    // creating an object
+    // This object will be pushed into useState with setTodos
+    let todo = {
       title,
+      category,
     };
-    // pushing the object to the tasks array
-    setTaskName([...tasks, task]);
-    // clearing the input field after submitting
-    setTaskName("");
+    // using spread operator --> creates an empty array initially with todos
+    // --> then on submit, all the new values will be added to todo
+    setTodos([...todos, todo]);
+    // resetting input fields after submit
     setTitle("");
+    setCategory("");
   };
 
-  // using useEffect hook to save data to local storage
-  // passing an empty array as a second argument to useEffect hook
-  // this will run the function every time the component is rendered ,in other words --> every time a task is created on submit
-  // becuase local storage is always a string, we need to convert the object to a string with JSON.stringify
-
+  // saving data to local storage
+  // providing [todos] as a dependancy parameter
+  // whenever a new todo is added to the array --> this useEffect is fired
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <div className="wrapper">
@@ -48,22 +47,22 @@ const App = () => {
           <form
             autoComplete="off"
             className="form-group "
-            onSubmit={handleTaskSubmit}
+            onSubmit={handleTodoSubmit}
           >
-            <label for="task">Task</label>
+            <label htmlFor="title">Title</label>
             <br />
             <input
-              placeholder="enter task name here..."
+              placeholder="enter title..."
               type="text "
               className="form-controll m-1"
-              id="task"
+              id="title"
               required
-              onChange={(e) => setTaskName(e.target.value)}
-              value={taskName}
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
             />
             <br />
-            {/* PICK TITLE */}
-            <label className="pt-3 ">Pick one or more titles</label>
+            {/* PICK CATEGORY */}
+            <label className="pt-3 ">Pick one or more categories</label>
             <div className="m-2">
               <div className="form-check">
                 <input
@@ -93,19 +92,19 @@ const App = () => {
               </div>
             </div>
 
-            {/* CREATE TITLE */}
-            <label className="pb-2">... and/or create your own title</label>
+            {/* CREATE CATEGORY */}
+            <label className="pb-2">... and/or create your own category</label>
             <br />
             <input
-              placeholder="enter title name here... "
+              placeholder="enter category... "
               type="text "
               className="form-controll m-1  "
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
             />
             <br />
             <button className="btn btn-outline-secondary mt-2   " type="submit">
-              create task
+              create todo
             </button>
           </form>
         </div>
