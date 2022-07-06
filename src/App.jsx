@@ -16,12 +16,10 @@ const getDatafromLocalStorage = () => {
 
 const App = () => {
   // creating an array to store in the object state, initially the getDatafromLocalStorage variable is passed
-  // main array of object state --> title and category
   const [todos, setTodos] = useState(getDatafromLocalStorage());
 
   //input field states and setters
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
 
   //when pressing submit button, an object will be stored in todo useState
 
@@ -33,14 +31,13 @@ const App = () => {
     // creating an object
     let todo = {
       title,
-      category,
+      
     };
     // using spread operator --> creates an empty array initially with todos
     // --> then on submit, all the new values will be added to todo
     setTodos([...todos, todo]);
     // resetting input fields after submit
     setTitle("");
-    setCategory("");
   };
 
   // delete book from local storage
