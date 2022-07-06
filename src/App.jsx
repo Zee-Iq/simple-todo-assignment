@@ -40,7 +40,7 @@ const App = () => {
     setTitle("");
   };
 
-  // delete book from local storage
+  // delete single todo from local storage
   const deleteTodo = (title) => {
     console.log("title ", title);
     const filteredTodos = todos.filter((element, index) => {
